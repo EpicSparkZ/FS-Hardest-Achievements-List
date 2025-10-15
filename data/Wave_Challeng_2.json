@@ -1,0 +1,18 @@
+{
+    "id": 81136552,
+    "name": "Wave Challeng 2",
+    "author": "EpicSparkZ",
+    "creators": ["EpicSparkZ"],
+    "verifier": "EpicSparkZ",
+    "verification": "https://youtu.be/n_y1vAaHTdY?si=e6p_YQauuwyHP_mY",
+    "percentToQualify": 100,
+    "password": "N/A",
+    "records": [
+        {
+            "user": "Mental",
+            "link": "https://www.youtube.com/watch?v=2ZWsFUcyz_Y",
+            "percent": 100,
+            "hz": 240
+        }
+    ]
+}

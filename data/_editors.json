@@ -1,0 +1,27 @@
+[
+    {
+        "role": "owner",
+        "name": "EpicSparkZ",
+        "link": "https://www.youtube.com/@EpicSparkZ7167"
+    },
+    {
+        "role": "admin",
+        "name": "Tonk",
+        "link": "https://www.youtube.com/@tonkorsmth"
+    },
+    {
+        "role": "helper",
+        "name": "N/A",
+        "link": ""
+    },
+    {
+        "role": "trial",
+        "name": "N/A",
+        "link": ""
+    },
+    {
+        "role": "dev",
+        "name": "N/A",
+        "link": ""
+    }
+]
