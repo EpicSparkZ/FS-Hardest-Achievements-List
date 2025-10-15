@@ -23,22 +23,13 @@ export default {
         <main v-else class="page-list">
             <div class="list-container">
                 <table class="list" v-if="list">
-                    <tr
-                        v-for="([level, err], i) in list"
-                        :key="i"
-                    >
+                    <tr v-for="([level, err], i) in list" :key="i">
                         <td class="rank">
                             <p v-if="i === 0" class="type-label-lg" :style="rankStyle(0)">#1</p>
                             <p v-else-if="i === 1" class="type-label-lg" :style="rankStyle(1)">#2</p>
                             <p v-else-if="i === 2" class="type-label-lg" :style="rankStyle(2)">#3</p>
                             <p v-else-if="i + 1 <= 100" class="type-label-lg">#{{ i + 1 }}</p>
-                            <p 
-                                v-else-if="i + 1 <= 500" 
-                                class="type-label-lg" 
-                                style="color: #ff0000;"
-                            >
-                                Legacy
-                            </p>
+                            <p v-else-if="i + 1 <= 500" class="type-label-lg" style="color: #ff0000;">Legacy</p>
                             <p v-else class="type-label-lg">L̴̪̼͝ë̴̻̞͘g̷͒̐͜a̸̙͑c̷͈̻̅͊y̶̱͋</p>
                         </td>
                         <td class="level" :class="{ 'active': selected == i, 'error': !level }">
@@ -49,6 +40,7 @@ export default {
                     </tr>
                 </table>
             </div>
+
             <div class="level-container">
                 <div class="level" v-if="level">
                     <h1>{{ level.name }}</h1>
@@ -61,10 +53,10 @@ export default {
                     <!-- Level Image -->
                     <img 
                         class="level-image" 
-                        :src="\`/listimages/\${level.id || 'na'}.png\`" 
+                        :src="\`/listimages/\${level.id || 0}.png\`" 
                         alt="Level Image" 
                         style="width: 100%; border-radius: 10px; margin-bottom: 10px;"
-                        onerror="this.src='/listimages/na.png'"
+                        onerror="this.src='/listimages/0.png'"
                     >
 
                     <iframe 
@@ -73,6 +65,7 @@ export default {
                         :src="video" 
                         frameborder="0">
                     </iframe>
+
                     <ul class="stats">
                         <li>
                             <div class="type-title-sm">Points when completed</div>
@@ -87,15 +80,14 @@ export default {
                             <p>{{ level.password || 'Free to Copy' }}</p>
                         </li>
                     </ul>
+
                     <h2>Records</h2>
                     <p v-if="selected + 1 <= 75"><strong>{{ level.percentToQualify }}%</strong> or better to qualify</p>
                     <p v-else-if="selected +1 <= 150"><strong>100%</strong> or better to qualify</p>
                     <p v-else>This level does not accept new records.</p>
                     <table class="records">
                         <tr v-for="record in level.records" class="record">
-                            <td class="percent">
-                                <p>{{ record.percent }}%</p>
-                            </td>
+                            <td class="percent"><p>{{ record.percent }}%</p></td>
                             <td class="user">
                                 <a :href="record.link" target="_blank" class="type-label-lg">{{ record.user }}</a>
                             </td>
@@ -105,12 +97,11 @@ export default {
                                     :src="\`/assets/phone-landscape\${store.dark ? '-dark' : ''}.svg\`" 
                                     alt="Mobile">
                             </td>
-                            <td class="hz">
-                                <p>{{ record.hz }}Hz</p>
-                            </td>
+                            <td class="hz"><p>{{ record.hz }}Hz</p></td>
                         </tr>
                     </table>
                 </div>
+
                 <div 
                     v-else 
                     class="level" 
@@ -122,6 +113,7 @@ export default {
                     </p>
                 </div>
             </div>
+
             <div class="meta-container">
                 <div class="meta">
                     <div class="errors" v-show="errors.length > 0">
@@ -188,8 +180,20 @@ export default {
         this.list = await fetchList();
         this.editors = await fetchEditors();
 
-        if (!this.list) {
-            this.errors = ["Failed to load list. Retry in a few minutes or notify list staff."];
+        if (!this.list || this.list.length === 0) {
+            // Use placeholder JSON if fetch fails
+            this.list = [[{
+                "id": 0,
+                "name": "N/A",
+                "author": "N/A",
+                "creators": ["N/A"],
+                "verifier": "N/A",
+                "verification": "N/A",
+                "percentToQualify": "100",
+                "Enjoyment Rating": "N/A",
+                "records": [{"user": "N/A","link": "N/A","percent": 0,"hz": 0}]
+            }, null]];
+            this.errors.push("Failed to load list. Showing placeholder level.");
         } else {
             this.errors.push(
                 ...this.list
