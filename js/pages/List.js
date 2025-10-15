@@ -57,6 +57,16 @@ export default {
                         :creators="level.creators" 
                         :verifier="level.verifier">
                     </LevelAuthors>
+
+                    <!-- Level Image -->
+                    <img 
+                        class="level-image" 
+                        :src="\`/listimages/\${level.id || 'na'}.png\`" 
+                        alt="Level Image" 
+                        style="width: 100%; border-radius: 10px; margin-bottom: 10px;"
+                        onerror="this.src='/listimages/na.png'"
+                    >
+
                     <iframe 
                         class="video" 
                         id="videoframe" 
