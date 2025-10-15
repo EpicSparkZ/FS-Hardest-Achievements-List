@@ -28,16 +28,11 @@ export default {
                         :key="i"
                     >
                         <td class="rank">
-                            <p
-                                v-if="level?.name === 'HAUNTED'"
-                                class="type-label-lg"
-                                :style="{ color: tributeColor }"
-                            >Tribute</p>
-                            <p v-else-if="i === 0" class="type-label-lg" :style="rankStyle(0)">#1</p>
+                            <p v-if="i === 0" class="type-label-lg" :style="rankStyle(0)">#1</p>
                             <p v-else-if="i === 1" class="type-label-lg" :style="rankStyle(1)">#2</p>
                             <p v-else-if="i === 2" class="type-label-lg" :style="rankStyle(2)">#3</p>
                             <p v-else-if="i + 1 <= 31" class="type-label-lg">#{{ i + 1 }}</p>
-                            <p v-else-if="i + 1 <= 51" class="type-label-lg">Legacy</p>
+                            <p v-else-if="i + 1 <= 3" class="type-label-lg">Legacy</p>
                             <p v-else class="type-label-lg">Super Legacy</p>
                         </td>
                         <td class="level" :class="{ 'active': selected == i, 'error': !level }">
@@ -48,14 +43,9 @@ export default {
                     </tr>
                 </table>
             </div>
-            <div class="level-container" :class="{ 'rainbow-background': level?.name === 'HAUNTED' }">
+            <div class="level-container">
                 <div class="level" v-if="level">
-                    <h1
-                        :class="{ 'rainbow-title': level.name === 'HAUNTED' }"
-                        :style="level.name === 'HAUNTED' ? { color: tributeColor, textShadow: tributeGlow } : {}"
-                    >
-                        {{ level.name }}
-                    </h1>
+                    <h1>{{ level.name }}</h1>
                     <LevelAuthors :author="level.author" :creators="level.creators" :verifier="level.verifier"></LevelAuthors>
                     <iframe class="video" id="videoframe" :src="video" frameborder="0"></iframe>
                     <ul class="stats">
@@ -116,14 +106,7 @@ export default {
                         </ol>
                     </template>
                     <h3>Submission Requirements</h3>
-                    <p>Achieved the record without using hacks (however, FPS bypass is allowed, up to 360fps)</p>
-                    <p>Achieved the record on the level that is listed on the site - please check the level ID before you submit a record</p>
-                    <p>Have either source audio or clicks/taps in the video. Edited audio only does not count</p>
-                    <p>The recording must have a previous attempt and entire death animation shown before the completion, unless the completion is on the first attempt. Everyplay records are exempt from this</p>
-                    <p>The recording must also show the player hit the endwall, or the completion will be invalidated.</p>
-                    <p>Do not use secret routes or bug routes</p>
-                    <p>Do not use easy modes, only a record of the unmodified level qualifies</p>
-                    <p>Once a level falls onto the Legacy List, we accept records for it for 24 hours after it falls off, then afterwards we never accept records for said level</p>
+                    <p>N/A</p>
                 </div>
             </div>
         </main>
@@ -136,8 +119,6 @@ export default {
         errors: [],
         roleIconMap,
         store,
-        tributeColor: '#ff0000',
-        tributeGlow: '0 0 15px rgba(255, 0, 0, 0.85)',
     }),
     computed: {
         level() {
@@ -168,33 +149,10 @@ export default {
         }
 
         this.loading = false;
-
-        this.startRainbowEffect();
     },
     methods: {
         embed,
         score,
-        startRainbowEffect() {
-            let hue = 0;
-            const interval = 85;
-            const speed = 5;
-
-            const hslToRgb = (h, s, l) => {
-                s /= 100;
-                l /= 100;
-                const k = n => (n + h / 30) % 12;
-                const a = s * Math.min(l, 1 - l);
-                const f = n => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-                return [Math.round(f(0) * 255), Math.round(f(8) * 255), Math.round(f(4) * 255)];
-            };
-
-            setInterval(() => {
-                this.tributeColor = `hsl(${hue}, 100%, 65%)`;
-                const [r, g, b] = hslToRgb(hue, 100, 65);
-                this.tributeGlow = `0 0 15px rgba(${r}, ${g}, ${b}, 0.80)`;
-                hue = (hue + speed) % 360;
-            }, interval);
-        },
         rankStyle(rank) {
             const colors = ['gold', 'silver', '#cd7f32'];
             let color = colors[rank];
