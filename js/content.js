@@ -33,27 +33,7 @@ export async function fetchList() {
             })
         );
 
-        // Ensure "HAUNTED.json" is always at the end of the list
-        if (!list.includes("HAUNTED.json")) {
-            list.push("HAUNTED.json");
-        }
-
-        // Fetching "HAUNTED.json" and appending it at the end
-        const hauntedLevelResult = await fetch(`${dir}/HAUNTED.json`);
-        try {
-            const hauntedLevel = await hauntedLevelResult.json();
-            result.push([
-                {
-                    ...hauntedLevel,
-                    path: "HAUNTED.json",
-                    records: hauntedLevel.records.sort((a, b) => b.percent - a.percent),
-                },
-                null,
-            ]);
-        } catch {
-            console.error(`Failed to load HAUNTED.json.`);
-            result.push([null, "HAUNTED.json"]);
-        }
+        // Removed haunted level logic entirely
 
         return result;
     } catch {
