@@ -31,8 +31,8 @@ export default {
                             <p v-if="i === 0" class="type-label-lg" :style="rankStyle(0)">#1</p>
                             <p v-else-if="i === 1" class="type-label-lg" :style="rankStyle(1)">#2</p>
                             <p v-else-if="i === 2" class="type-label-lg" :style="rankStyle(2)">#3</p>
-                            <p v-else-if="i + 1 <= 31" class="type-label-lg">#{{ i + 1 }}</p>
-                            <p v-else-if="i + 1 <= 4" class="type-label-lg">Legacy</p>
+                            <p v-else-if="i + 1 <= 3" class="type-label-lg">#{{ i + 1 }}</p>
+                            <p v-else-if="i + 1 <= 5" class="type-label-lg">Legacy</p>
                             <p v-else class="type-label-lg">Super Legacy</p>
                         </td>
                         <td class="level" :class="{ 'active': selected == i, 'error': !level }">
