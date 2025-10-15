@@ -31,7 +31,7 @@ export default {
                             <p v-if="i === 0" class="type-label-lg" :style="rankStyle(0)">#1</p>
                             <p v-else-if="i === 1" class="type-label-lg" :style="rankStyle(1)">#2</p>
                             <p v-else-if="i === 2" class="type-label-lg" :style="rankStyle(2)">#3</p>
-                            <p v-else-if="i + 1 <= 3" class="type-label-lg">#{{ i + 1 }}</p>
+                            <p v-else-if="i + 1 <= 100" class="type-label-lg">#{{ i + 1 }}</p>
                             <p 
                                 v-else-if="i + 1 <= 500" 
                                 class="type-label-lg" 
