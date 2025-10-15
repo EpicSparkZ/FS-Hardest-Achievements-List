@@ -52,14 +52,16 @@ export default {
 
                     <!-- Level Image -->
                     <img 
-                        class="level-image" 
-                        :src="\`/listimages/\${level.id || 0}.png\`" 
+                        v-if="level.image" 
+                        :src="level.image" 
                         alt="Level Image" 
                         style="width: 100%; border-radius: 10px; margin-bottom: 10px;"
                         onerror="this.src='/listimages/0.png'"
                     >
 
+                    <!-- Video iframe (optional) -->
                     <iframe 
+                        v-if="level.verification" 
                         class="video" 
                         id="videoframe" 
                         :src="video" 
@@ -180,20 +182,8 @@ export default {
         this.list = await fetchList();
         this.editors = await fetchEditors();
 
-        if (!this.list || this.list.length === 0) {
-            // Use placeholder JSON if fetch fails
-            this.list = [[{
-                "id": 0,
-                "name": "N/A",
-                "author": "N/A",
-                "creators": ["N/A"],
-                "verifier": "N/A",
-                "verification": "N/A",
-                "percentToQualify": "100",
-                "Enjoyment Rating": "N/A",
-                "records": [{"user": "N/A","link": "N/A","percent": 0,"hz": 0}]
-            }, null]];
-            this.errors.push("Failed to load list. Showing placeholder level.");
+        if (!this.list) {
+            this.errors = ["Failed to load list. Retry in a few minutes or notify list staff."];
         } else {
             this.errors.push(
                 ...this.list
@@ -213,9 +203,7 @@ export default {
         rankStyle(rank) {
             const colors = ['gold', 'silver', '#cd7f32'];
             let color = colors[rank];
-            return {
-                color: color,
-            };
+            return { color };
         },
     },
 };
