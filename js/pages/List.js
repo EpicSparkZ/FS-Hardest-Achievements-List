@@ -46,8 +46,17 @@ export default {
             <div class="level-container">
                 <div class="level" v-if="level">
                     <h1>{{ level.name }}</h1>
-                    <LevelAuthors :author="level.author" :creators="level.creators" :verifier="level.verifier"></LevelAuthors>
-                    <iframe class="video" id="videoframe" :src="video" frameborder="0"></iframe>
+                    <LevelAuthors 
+                        :author="level.author" 
+                        :creators="level.creators" 
+                        :verifier="level.verifier">
+                    </LevelAuthors>
+                    <iframe 
+                        class="video" 
+                        id="videoframe" 
+                        :src="video" 
+                        frameborder="0">
+                    </iframe>
                     <ul class="stats">
                         <li>
                             <div class="type-title-sm">Points when completed</div>
@@ -75,7 +84,10 @@ export default {
                                 <a :href="record.link" target="_blank" class="type-label-lg">{{ record.user }}</a>
                             </td>
                             <td class="mobile">
-                                <img v-if="record.mobile" :src="\`/assets/phone-landscape\${store.dark ? '-dark' : ''}.svg\`" alt="Mobile">
+                                <img 
+                                    v-if="record.mobile" 
+                                    :src="\`/assets/phone-landscape\${store.dark ? '-dark' : ''}.svg\`" 
+                                    alt="Mobile">
                             </td>
                             <td class="hz">
                                 <p>{{ record.hz }}Hz</p>
@@ -83,8 +95,15 @@ export default {
                         </tr>
                     </table>
                 </div>
-                <div v-else class="level" style="height: 100%; justify-content: center; align-items: center;">
-                    <p>Looks like something failed to load or is broken at the moment. This may be due to a failure in code, or an invalid level file. Please contact a list developer if this continues for over 24 hours.</p>
+                <div 
+                    v-else 
+                    class="level" 
+                    style="height: 100%; justify-content: center; align-items: center;">
+                    <p>
+                        Looks like something failed to load or is broken at the moment. 
+                        This may be due to a failure in code, or an invalid level file. 
+                        Please contact a list developer if this continues for over 24 hours.
+                    </p>
                 </div>
             </div>
             <div class="meta-container">
@@ -93,14 +112,25 @@ export default {
                         <p class="error" v-for="error of errors">{{ error }}</p>
                     </div>
                     <div class="og">
-                        <p class="type-label-md">Website layout made by <a href="https://tsl.pages.dev/" target="_blank">TheShittyList</a></p>
+                        <p class="type-label-md">
+                            Website layout made by 
+                            <a href="https://tsl.pages.dev/" target="_blank">TheShittyList</a>
+                        </p>
                     </div>
                     <template v-if="editors">
                         <h3>List Editors</h3>
                         <ol class="editors">
                             <li v-for="editor in editors">
-                                <img :src="\`/assets/\${roleIconMap[editor.role]}\${store.dark ? '-dark' : ''}.svg\`" :alt="editor.role">
-                                <a v-if="editor.link" class="type-label-lg link" target="_blank" :href="editor.link">{{ editor.name }}</a>
+                                <img 
+                                    :src="\`/assets/\${roleIconMap[editor.role]}\${store.dark ? '-dark' : ''}.svg\`" 
+                                    :alt="editor.role">
+                                <a 
+                                    v-if="editor.link" 
+                                    class="type-label-lg link" 
+                                    target="_blank" 
+                                    :href="editor.link">
+                                    {{ editor.name }}
+                                </a>
                                 <p v-else>{{ editor.name }}</p>
                             </li>
                         </ol>
