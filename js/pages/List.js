@@ -28,12 +28,7 @@ export default {
                         :key="i"
                     >
                         <td class="rank">
-                            <p
-                                v-if="level?.name === 'HAUNTED'"
-                                class="type-label-lg"
-                                :style="{ color: tributeColor }"
-                            >Tribute</p>
-                            <p v-else-if="i === 0" class="type-label-lg" :style="rankStyle(0)">#1</p>
+                            <p v-if="i === 0" class="type-label-lg" :style="rankStyle(0)">#1</p>
                             <p v-else-if="i === 1" class="type-label-lg" :style="rankStyle(1)">#2</p>
                             <p v-else-if="i === 2" class="type-label-lg" :style="rankStyle(2)">#3</p>
                             <p v-else-if="i + 1 <= 31" class="type-label-lg">#{{ i + 1 }}</p>
@@ -48,16 +43,20 @@ export default {
                     </tr>
                 </table>
             </div>
-            <div class="level-container" :class="{ 'rainbow-background': level?.name === 'HAUNTED' }">
+            <div class="level-container">
                 <div class="level" v-if="level">
-                    <h1
-                        :class="{ 'rainbow-title': level.name === 'HAUNTED' }"
-                        :style="level.name === 'HAUNTED' ? { color: tributeColor, textShadow: tributeGlow } : {}"
-                    >
-                        {{ level.name }}
-                    </h1>
-                    <LevelAuthors :author="level.author" :creators="level.creators" :verifier="level.verifier"></LevelAuthors>
-                    <iframe class="video" id="videoframe" :src="video" frameborder="0"></iframe>
+                    <h1>{{ level.name }}</h1>
+                    <LevelAuthors 
+                        :author="level.author" 
+                        :creators="level.creators" 
+                        :verifier="level.verifier">
+                    </LevelAuthors>
+                    <iframe 
+                        class="video" 
+                        id="videoframe" 
+                        :src="video" 
+                        frameborder="0">
+                    </iframe>
                     <ul class="stats">
                         <li>
                             <div class="type-title-sm">Points when completed</div>
@@ -85,7 +84,10 @@ export default {
                                 <a :href="record.link" target="_blank" class="type-label-lg">{{ record.user }}</a>
                             </td>
                             <td class="mobile">
-                                <img v-if="record.mobile" :src="\`/assets/phone-landscape\${store.dark ? '-dark' : ''}.svg\`" alt="Mobile">
+                                <img 
+                                    v-if="record.mobile" 
+                                    :src="\`/assets/phone-landscape\${store.dark ? '-dark' : ''}.svg\`" 
+                                    alt="Mobile">
                             </td>
                             <td class="hz">
                                 <p>{{ record.hz }}Hz</p>
@@ -93,8 +95,15 @@ export default {
                         </tr>
                     </table>
                 </div>
-                <div v-else class="level" style="height: 100%; justify-content: center; align-items: center;">
-                    <p>Looks like something failed to load or is broken at the moment. This may be due to a failure in code, or an invalid level file. Please contact a list developer if this continues for over 24 hours.</p>
+                <div 
+                    v-else 
+                    class="level" 
+                    style="height: 100%; justify-content: center; align-items: center;">
+                    <p>
+                        Looks like something failed to load or is broken at the moment. 
+                        This may be due to a failure in code, or an invalid level file. 
+                        Please contact a list developer if this continues for over 24 hours.
+                    </p>
                 </div>
             </div>
             <div class="meta-container">
@@ -103,14 +112,25 @@ export default {
                         <p class="error" v-for="error of errors">{{ error }}</p>
                     </div>
                     <div class="og">
-                        <p class="type-label-md">Website layout made by <a href="https://tsl.pages.dev/" target="_blank">TheShittyList</a></p>
+                        <p class="type-label-md">
+                            Website layout made by 
+                            <a href="https://tsl.pages.dev/" target="_blank">TheShittyList</a>
+                        </p>
                     </div>
                     <template v-if="editors">
                         <h3>List Editors</h3>
                         <ol class="editors">
                             <li v-for="editor in editors">
-                                <img :src="\`/assets/\${roleIconMap[editor.role]}\${store.dark ? '-dark' : ''}.svg\`" :alt="editor.role">
-                                <a v-if="editor.link" class="type-label-lg link" target="_blank" :href="editor.link">{{ editor.name }}</a>
+                                <img 
+                                    :src="\`/assets/\${roleIconMap[editor.role]}\${store.dark ? '-dark' : ''}.svg\`" 
+                                    :alt="editor.role">
+                                <a 
+                                    v-if="editor.link" 
+                                    class="type-label-lg link" 
+                                    target="_blank" 
+                                    :href="editor.link">
+                                    {{ editor.name }}
+                                </a>
                                 <p v-else>{{ editor.name }}</p>
                             </li>
                         </ol>
@@ -136,8 +156,6 @@ export default {
         errors: [],
         roleIconMap,
         store,
-        tributeColor: '#ff0000',
-        tributeGlow: '0 0 15px rgba(255, 0, 0, 0.85)',
     }),
     computed: {
         level() {
@@ -168,33 +186,10 @@ export default {
         }
 
         this.loading = false;
-
-        this.startRainbowEffect();
     },
     methods: {
         embed,
         score,
-        startRainbowEffect() {
-            let hue = 0;
-            const interval = 85;
-            const speed = 5;
-
-            const hslToRgb = (h, s, l) => {
-                s /= 100;
-                l /= 100;
-                const k = n => (n + h / 30) % 12;
-                const a = s * Math.min(l, 1 - l);
-                const f = n => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-                return [Math.round(f(0) * 255), Math.round(f(8) * 255), Math.round(f(4) * 255)];
-            };
-
-            setInterval(() => {
-                this.tributeColor = `hsl(${hue}, 100%, 65%)`;
-                const [r, g, b] = hslToRgb(hue, 100, 65);
-                this.tributeGlow = `0 0 15px rgba(${r}, ${g}, ${b}, 0.80)`;
-                hue = (hue + speed) % 360;
-            }, interval);
-        },
         rankStyle(rank) {
             const colors = ['gold', 'silver', '#cd7f32'];
             let color = colors[rank];
