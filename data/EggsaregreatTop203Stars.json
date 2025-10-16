@@ -1,9 +1,9 @@
 {
-    "id": 0,
+    "id": -1,
     "name": "EggsAreGreat Top 203 Stars",
     "author": "EggsAreGreat",
     "creators": ["EggsAreGreat"],
-    "RecCompleter": "EggsAreGreat",
+    "verifier": "EggsAreGreat",
     "verification": "N/A",
     "percentToQualify": "100",
     "Enjoyment Rating": "N/A",
