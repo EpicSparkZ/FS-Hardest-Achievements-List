@@ -42,12 +42,6 @@ export default {
                 <div class="type-title-sm">Completor</div>
                 <p class="type-body">
                     <span>{{ verifier }}</span>
-                </p>
-            </template>
-            <div class="type-title-sm">Publisher</div>
-            <p class="type-body">
-                <span>{{ author }}</span>
-            </p>
         </div>
     `,
 
