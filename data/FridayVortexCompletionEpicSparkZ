@@ -3,7 +3,7 @@
     "name": "EpicSparkZ Friday Vortex Completion",
     "author": "N/A",
     "creators": ["N/A"],
-    "RecCompleter": "EpicSparkZ",
+    "verifier": "EpicSparkZ",
     "verification": "N/A",
     "percentToQualify": "100",
     "Enjoyment Rating": "N/A",
