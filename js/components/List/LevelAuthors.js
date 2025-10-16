@@ -8,7 +8,7 @@ export default {
             type: Array,
             required: true,
         },
-        tester: {
+        verifier: {
             type: String,
             required: true,
         },
@@ -26,7 +26,7 @@ export default {
                 <p class="type-body">
                     <span>{{ author }}</span>
                 </p>
-                <div class="type-title-sm">Verifier</div>
+                <div class="type-title-sm">Completor</div>
                 <p class="type-body">
                     <span>{{ verifier }}</span>
                 </p>
