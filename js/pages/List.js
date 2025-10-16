@@ -47,7 +47,7 @@ export default {
                     <LevelAuthors 
                         :author="level.author" 
                         :creators="level.creators" 
-                        :Record Completer="level.RecCompleter">
+                        :verifier="level.verifier">
                     </LevelAuthors>
 
                     <!-- Level Image -->
