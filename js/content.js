@@ -64,16 +64,16 @@ export async function fetchLeaderboard() {
         }
 
         // Verification
-        const RecCompletor = Object.keys(scoreMap).find(
-            (u) => u.toLowerCase() === level.RecCompletor.toLowerCase(),
-        ) || level.RecCompletor;
-        scoreMap[RecCompletor] ??= {
+        const verifier = Object.keys(scoreMap).find(
+            (u) => u.toLowerCase() === level.verifier.toLowerCase(),
+        ) || level.verifier;
+        scoreMap[verifier] ??= {
             verified: [],
             completed: [],
             progressed: [],
         };
-        const { RecCompletor } = scoreMap[RecConpletor];
-        RecCompletor.push({
+        const { verified } = scoreMap[verifier];
+        verified.push({
             rank: rank + 1,
             level: level.name,
             score: score(rank + 1, 100, level.percentToQualify),
