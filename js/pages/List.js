@@ -59,14 +59,14 @@ export default {
                         onerror="this.src='/listimages/0.png'"
                     >
 
-                    <!-- Video iframe (optional) -->
-                    <iframe 
-                        v-if="level.verification" 
-                        class="video" 
-                        id="videoframe" 
-                        :src="video" 
-                        frameborder="0">
-                    </iframe>
+                    <!-- Video iframe (only show if NO image) -->
+<iframe 
+    v-if="!level.image && level.verification" 
+    class="video" 
+    id="videoframe" 
+    :src="video" 
+    frameborder="0">
+</iframe>
 
                     <ul class="stats">
                         <li>
