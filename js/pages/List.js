@@ -44,20 +44,11 @@ export default {
             <div class="level-container">
                 <div class="level" v-if="level">
                     <h1>{{ level.name }}</h1>
-
-                    <!-- Dynamic Info Section -->
-                    <div class="dynamic-info">
-                        <p 
-                            v-for="(value, key) in visibleInfo(level)" 
-                            :key="key"
-                            class="type-title-sm"
-                            style="margin-bottom: 4px;"
-                        >
-                            <strong>{{ key }}:</strong>
-                            <span v-if="Array.isArray(value)">{{ value.join(', ') }}</span>
-                            <span v-else>{{ value }}</span>
-                        </p>
-                    </div>
+                    <LevelAuthors 
+                        :author="level.author" 
+                        :creators="level.creators" 
+                        :verifier="level.verifier">
+                    </LevelAuthors>
 
                     <!-- Level Image -->
                     <img 
@@ -69,13 +60,13 @@ export default {
                     >
 
                     <!-- Video iframe (only show if NO image) -->
-                    <iframe 
-                        v-if="!level.image && level.verification" 
-                        class="video" 
-                        id="videoframe" 
-                        :src="video" 
-                        frameborder="0">
-                    </iframe>
+<iframe 
+    v-if="!level.image && level.verification" 
+    class="video" 
+    id="videoframe" 
+    :src="video" 
+    frameborder="0">
+</iframe>
 
                     <ul class="stats">
                         <li>
@@ -88,7 +79,7 @@ export default {
                         </li>
                         <li>
                             <div class="type-title-sm">Enjoyment Rating</div>
-                            <p>{{ level["Enjoyment Rating"] || 'N/A' }}</p>
+                            <p>{{ level.password || 'Free to Copy' }}</p>
                         </li>
                     </ul>
 
@@ -197,7 +188,7 @@ export default {
             this.errors.push(
                 ...this.list
                     .filter(([_, err]) => err)
-                    .map(([_, err]) => \`Failed to load level. (\${err}.json)\`)
+                    .map(([_, err]) => `Failed to load level. (${err}.json)`)
             );
             if (!this.editors) {
                 this.errors.push("Failed to load list editors.");
@@ -213,24 +204,6 @@ export default {
             const colors = ['gold', 'silver', '#cd7f32'];
             let color = colors[rank];
             return { color };
-        },
-        visibleInfo(level) {
-            const excluded = [
-                "id",
-                "image",
-                "verification",
-                "showcase",
-                "records",
-                "percentToQualify",
-                "Enjoyment Rating",
-            ];
-            const info = {};
-            for (const [key, value] of Object.entries(level)) {
-                if (!excluded.includes(key)) {
-                    info[key] = value;
-                }
-            }
-            return info;
         },
     },
 };
