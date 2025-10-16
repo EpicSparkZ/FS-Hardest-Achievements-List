@@ -59,9 +59,9 @@ export default {
                         onerror="this.src='/listimages/0.png'"
                     >
 
-                    <!-- Video iframe (optional) -->
+                    <!-- Video iframe (only show if NO image exists) -->
                     <iframe 
-                        v-if="level.verification" 
+                        v-if="!level.image && level.verification" 
                         class="video" 
                         id="videoframe" 
                         :src="video" 
@@ -188,7 +188,7 @@ export default {
             this.errors.push(
                 ...this.list
                     .filter(([_, err]) => err)
-                    .map(([_, err]) => `Failed to load level. (${err}.json)`)
+                    .map(([_, err]) => \`Failed to load level. (\${err}.json)\`)
             );
             if (!this.editors) {
                 this.errors.push("Failed to load list editors.");
